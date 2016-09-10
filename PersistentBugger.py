@@ -22,22 +22,26 @@ For example:
  persistence(4) # returns 0, because 4 is already a one-digit number
 
 '''
+
+
 def persistence(n):
     result = 0
     while n > 9:
-        digit = len(str(n)) # be careful about this. It is previously put outside the while-loop.
+        # be careful about this. It is previously put outside the while-loop.
+        digit = len(str(n))
         temp = n
         product = 1
         for i in range(digit):
-            product = product * (temp // (10 ** (digit-i-1)))
+            product = product * (temp // (10 ** (digit - i - 1)))
             temp = temp % (10 ** (digit - i - 1))
-        n = product 
+        n = product
         result = result + 1
     return result
+
 
 def persistence2(n, result=0):
     if len(str(n)) == 1:
         return result
     else:
-        return persistence(reduce(lambda x, y: int(x) * int(y), str(n), 1), result + 1) # call a function inside a function
-
+        # call a function inside a function
+        return persistence(reduce(lambda x, y: int(x) * int(y), str(n), 1), result + 1)
